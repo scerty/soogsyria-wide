@@ -348,12 +348,8 @@ export const buildCarQueryParams = (
         if (Array.isArray(value) && value.length > 0) {
           // فصل المحافظات عن المناطق
           const governorateValues = ['damascus', 'rural-damascus', 'aleppo', 'lattakia', 'tartous', 'homs', 'hama', 'idleb', 'deir-ez-zor', 'ar-raqqa', 'al-hasakeh', 'dara', 'as-sweida', 'quneitra'];
-            CAR_BRANDS.some(gov => gov.value === loc) === false && 
-            ['damascus', 'damascus-countryside', 'aleppo', 'latakia', 'tartous', 'homs', 'hama', 'idlib', 'deir-ez-zor', 'raqqa', 'al-hasakah', 'dara', 'as-suwayda', 'quneitra'].includes(loc)
-          );
-          const areas = value.filter(loc => 
-            !['damascus', 'damascus-countryside', 'aleppo', 'latakia', 'tartous', 'homs', 'hama', 'idlib', 'deir-ez-zor', 'raqqa', 'al-hasakah', 'dara', 'as-suwayda', 'quneitra'].includes(loc)
-          );
+          const governorates = value.filter(loc => governorateValues.includes(loc));
+          const areas = value.filter(loc => !governorateValues.includes(loc));
           
           if (governorates.length > 0) {
             params['location__governorate__slug_en__in'] = governorates.join(',');
