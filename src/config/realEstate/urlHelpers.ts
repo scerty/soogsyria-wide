@@ -74,13 +74,22 @@ export const urlParamsToFilters = (searchParams: URLSearchParams): any => {
       value.split('|').forEach(part => {
         if (part.startsWith('from:')) {
           const fromValue = part.substring(5);
-          rangeObj.from = isNaN(Number(fromValue)) ? fromValue : Number(fromValue);
+          if (fromValue !== '' && fromValue !== 'undefined') {
+            const numValue = Number(fromValue);
+            rangeObj.from = isNaN(numValue) ? fromValue : numValue;
+          }
         } else if (part.startsWith('to:')) {
           const toValue = part.substring(3);
-          rangeObj.to = isNaN(Number(toValue)) ? toValue : Number(toValue);
+          if (toValue !== '' && toValue !== 'undefined') {
+            const numValue = Number(toValue);
+            rangeObj.to = isNaN(numValue) ? toValue : numValue;
+          }
         }
       });
-      filters[key] = rangeObj;
+      // فقط إضافة الكائن إذا كان يحتوي على قيم فعلية
+      if (Object.keys(rangeObj).length > 0) {
+        filters[key] = rangeObj;
+      }
     } else {
       // Single values
       console.log(`📝 Parsing simple: ${key} = ${value}`);
@@ -90,8 +99,11 @@ export const urlParamsToFilters = (searchParams: URLSearchParams): any => {
         console.log(`🔄 Converting single value to array for ${key}: [${value}]`);
         filters[key] = [value];
       } else {
-        const numValue = Number(value);
-        filters[key] = isNaN(numValue) ? value : numValue;
+        // للقيم الرقمية، تحقق من صحتها
+        if (value !== '' && value !== 'undefined') {
+          const numValue = Number(value);
+          filters[key] = isNaN(numValue) ? value : numValue;
+        }
       }
     }
   }

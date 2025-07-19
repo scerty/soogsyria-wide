@@ -85,29 +85,42 @@ export const buildQueryParams = (
         break;
       case 'bedrooms':
         if (Array.isArray(value) && value.length > 0 && !value.includes('all')) {
-          const minBedrooms = Math.min(...value.map(Number).filter(n => !isNaN(n)));
-          if (!isNaN(minBedrooms)) {
+          const numericValues = value.map(v => parseInt(v)).filter(n => !isNaN(n) && n > 0);
+          if (numericValues.length > 0) {
+            const minBedrooms = Math.min(...numericValues);
             params['estate_detail__bedrooms__gte'] = minBedrooms;
           }
         }
         break;
       case 'bathrooms':
         if (Array.isArray(value) && value.length > 0 && !value.includes('all')) {
-          const minBathrooms = Math.min(...value.map(Number).filter(n => !isNaN(n)));
-          if (!isNaN(minBathrooms)) {
+          const numericValues = value.map(v => parseInt(v)).filter(n => !isNaN(n) && n > 0);
+          if (numericValues.length > 0) {
+            const minBathrooms = Math.min(...numericValues);
             params['estate_detail__bathrooms__gte'] = minBathrooms;
           }
         }
         break;
       case 'floor':
         if (Array.isArray(value) && value.length > 0) {
-          params['estate_detail__floor__in'] = value.join(',');
+          // معالجة خاصة للطوابق
+          const floorValues = value.map(v => {
+            if (v === '5+') return '5,6,7,8,9,10'; // للطوابق 5 فما فوق
+            return v;
+          }).join(',');
+          params['estate_detail__floor__in'] = floorValues;
         }
         break;
       case 'builtYear':
         if (typeof value === 'object') {
-          if (value.from !== undefined) params['estate_detail__built_year__gte'] = value.from;
-          if (value.to !== undefined) params['estate_detail__built_year__lte'] = value.to;
+          if (value.from !== undefined && value.from !== '') {
+            const fromYear = parseInt(value.from);
+            if (!isNaN(fromYear)) params['estate_detail__built_year__gte'] = fromYear;
+          }
+          if (value.to !== undefined && value.to !== '') {
+            const toYear = parseInt(value.to);
+            if (!isNaN(toYear)) params['estate_detail__built_year__lte'] = toYear;
+          }
         }
         break;
       case 'amenities':

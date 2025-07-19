@@ -21,18 +21,18 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
   placeholder = { from: 'من', to: 'إلى' },
 }) => {
   const handleFromChange = (value: string) => {
-    const num = Number(value);
+    const num = value === '' ? undefined : Number(value);
     onChange({
-      from: isNaN(num) ? undefined : num,
+      from: value === '' ? undefined : (isNaN(num) ? undefined : num),
       to: toValue,
     });
   };
 
   const handleToChange = (value: string) => {
-    const num = Number(value);
+    const num = value === '' ? undefined : Number(value);
     onChange({
       from: fromValue,
-      to: isNaN(num) ? undefined : num,
+      to: value === '' ? undefined : (isNaN(num) ? undefined : num),
     });
   };
 
@@ -42,6 +42,7 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
       <div className="flex space-x-2 space-x-reverse mb-2">
         <input
           type="number"
+          min="0"
           placeholder={placeholder.from}
           value={fromValue ?? ''}
           onChange={e => handleFromChange(e.target.value)}
@@ -49,6 +50,7 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
         />
         <input
           type="number"
+          min="0"
           placeholder={placeholder.to}
           value={toValue ?? ''}
           onChange={e => handleToChange(e.target.value)}

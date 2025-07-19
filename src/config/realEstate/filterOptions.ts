@@ -4,7 +4,6 @@ import { FilterOption } from '../../types/listing';
 
 // خيارات غرف النوم (تتطابق مع bedrooms)
 export const BEDROOM_OPTS: FilterOption[] = [
-  { label: 'الكل', value: 'all' },
   { label: '1+', value: '1' },
   { label: '2+', value: '2' },
   { label: '3+', value: '3' },
@@ -14,7 +13,6 @@ export const BEDROOM_OPTS: FilterOption[] = [
 
 // خيارات الحمامات (تتطابق مع bathrooms)
 export const BATHROOM_OPTS: FilterOption[] = [
-  { label: 'الكل', value: 'all' },
   { label: '1+', value: '1' },
   { label: '2+', value: '2' },
   { label: '3+', value: '3' },
