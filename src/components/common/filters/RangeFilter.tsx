@@ -99,23 +99,3 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
     </div>
   );
 };
-        <input
-          type="number"
-          min="0"
-          placeholder={placeholder.from}
-          value={fromValue ?? ''}
-          onChange={e => handleFromChange(e.target.value)}
-          className="w-1/2 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-        />
-        <input
-          type="number"
-          min="0"
-          placeholder={placeholder.to}
-          value={toValue ?? ''}
-          onChange={e => handleToChange(e.target.value)}
-          className="w-1/2 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-        />
-      </div>
-    </div>
-  );
-};
