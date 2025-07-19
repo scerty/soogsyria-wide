@@ -39,7 +39,6 @@ export const ButtonGroupFilter: React.FC<ButtonGroupFilterProps> = ({
         : [value];
       console.log(`📝 Single-select new values:`, newValues);
       onChange(newValues);
-      }
     }
   };
 
