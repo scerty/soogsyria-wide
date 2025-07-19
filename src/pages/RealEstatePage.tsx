@@ -82,7 +82,7 @@ export default function RealEstatePage() {
         activeTab === 'بيع' ? 'sale' :
         activeTab === 'إيجار' ? 'rent' :
         activeTab === 'شراء' ? 'buy' :
-        activeTab === 'تجاري' ? 'commercial' : 'sale';
+        activeTab === 'رهن' ? 'commercial' : 'sale';
       
       return listingService.getListings(limit, pageParam, {
         type: 'real_estate',

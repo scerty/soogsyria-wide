@@ -9,8 +9,11 @@ import { furnitureFiltersToUrlParams, urlParamsToFurnitureFilters } from '../con
 
 export interface Filters {
   locations: string[];
+  operationType: string[];
   propertyType: string[];
   condition: string[];
+  ownershipType: string[];
+  investmentType: string[];
   price?: { from?: number; to?: number };
   size?: { from?: number; to?: number };
   landSize?: { from?: number; to?: number };
@@ -74,8 +77,11 @@ export interface FurnitureFilters {
 
 const defaultFilters: Filters = {
   locations: [],
+  operationType: [],
   propertyType: [],
   condition: [],
+  ownershipType: [],
+  investmentType: [],
   bedrooms: [],
   bathrooms: [],
   floor: [],
