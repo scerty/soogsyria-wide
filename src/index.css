@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+      @apply font-tajawal;
+    }
+  }
+
+
+
+
+
+
+  /* Firefox */
+.modern-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 #F1F5F9;
+  }
+  
+  /* WebKit */
+  .modern-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .modern-scrollbar::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    border-radius: 2px;
+  }
+  .modern-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #CBD5E1;
+    border-radius: 2px;
+  }
+  .modern-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #94A3B8;
+  }
+
+  /* أنيميشن مخصص */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slideInUp {
+    animation: slideInUp 0.8s ease-out;
+  }
+
+  .animate-slideInLeft {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  .animate-slideInRight {
+    animation: slideInRight 0.6s ease-out;
+  }
+  

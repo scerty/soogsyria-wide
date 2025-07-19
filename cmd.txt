@@ -1,0 +1,19 @@
+git init
+git checkout -b main
+git remote add origin https://github.com/scerty/soogsyria-wide.git
+git add .
+git commit -m "🚀 Deploy Vite build"
+git push -f origin main
+
+
+plan_id 10:  'P-2FB90256YC780762SNB4P6CY'
+
+plan_id 25:  'P-6XH1784126441914ANB4QAGI'
+
+plan_id 50:  'P-0TL51437EF985780XNB4QCHA'
+
+plan_id 100: 'P-6VG55557RT6956648NB4QC5I'
+
+plan_id 150: 'P-9AK00592BH446631MNB4QDRA'
+
+
