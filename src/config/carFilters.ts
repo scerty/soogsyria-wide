@@ -34,7 +34,7 @@ const GOVERNORATES: FilterOption[] = [
   { label: 'دير الزور', value: 'deir-ez-zor', count: 219 },
   { label: 'الرقة', value: 'raqqa', count: 84 },
   { label: 'الحسكة', value: 'al-hasakah', count: 48 },
-  { label: 'درعا', value: 'daraa', count: 189 },
+  { label: 'درعا', value: 'dara', count: 189 },
   { label: 'السويداء', value: 'as-suwayda', count: 28 },
   { label: 'القنيطرة', value: 'quneitra', count: 34 },
 ];
@@ -346,7 +346,22 @@ export const buildCarQueryParams = (
     switch (key) {
       case 'locations':
         if (Array.isArray(value) && value.length > 0) {
-          params['location__slug__in'] = value.join(',');
+          // فصل المحافظات عن المناطق
+          const governorates = value.filter(loc => 
+            CAR_BRANDS.some(gov => gov.value === loc) === false && 
+            ['damascus', 'damascus-countryside', 'aleppo', 'latakia', 'tartous', 'homs', 'hama', 'idlib', 'deir-ez-zor', 'raqqa', 'al-hasakah', 'dara', 'as-suwayda', 'quneitra'].includes(loc)
+          );
+          const areas = value.filter(loc => 
+            !['damascus', 'damascus-countryside', 'aleppo', 'latakia', 'tartous', 'homs', 'hama', 'idlib', 'deir-ez-zor', 'raqqa', 'al-hasakah', 'dara', 'as-suwayda', 'quneitra'].includes(loc)
+          );
+          
+          if (governorates.length > 0) {
+            params['location__governorate__slug_en__in'] = governorates.join(',');
+          }
+          if (areas.length > 0) {
+            params['location__area__slug_en__in'] = areas.join(',');
+            params['location__sub_area__slug_en__in'] = areas.join(',');
+          }
         }
         break;
       case 'brands':

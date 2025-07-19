@@ -18,24 +18,24 @@ export interface FilterConfig {
 // المحافظات السورية (تتطابق مع governorate__slug_en)
 const GOVERNORATES: FilterOption[] = [
   { label: 'دمشق', value: 'damascus', count: 2200 },
-  { label: 'ريف دمشق', value: 'rural-damascus', count: 1656 },
+  { label: 'ريف دمشق', value: 'damascus-countryside', count: 1656 },
   { label: 'حلب', value: 'aleppo', count: 1405 },
-  { label: 'اللاذقية', value: 'lattakia', count: 2686 },
+  { label: 'اللاذقية', value: 'latakia', count: 2686 },
   { label: 'طرطوس', value: 'tartous', count: 5603 },
   { label: 'حمص', value: 'homs', count: 1860 },
   { label: 'حماة', value: 'hama', count: 299 },
-  { label: 'إدلب', value: 'idleb', count: 109 },
+  { label: 'إدلب', value: 'idlib', count: 109 },
   { label: 'دير الزور', value: 'deir-ez-zor', count: 219 },
-  { label: 'الرقة', value: 'ar-raqqa', count: 84 },
-  { label: 'الحسكة', value: 'al-hasakeh', count: 48 },
-  { label: 'درعا', value: 'daraa', count: 189 },
+  { label: 'الرقة', value: 'raqqa', count: 84 },
+  { label: 'الحسكة', value: 'al-hasakah', count: 48 },
+  { label: 'درعا', value: 'dara', count: 189 },
   { label: 'السويداء', value: 'as-suwayda', count: 28 },
   { label: 'القنيطرة', value: 'quneitra', count: 34 },
 ];
 
 // المناطق حسب المحافظة (تتطابق مع area__slug_en)
 const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
-  'damascus': [
+  damascus: [
     { label: 'المزة', value: 'mazzeh', count: 450 },
     { label: 'أبو رمانة', value: 'abu-rummaneh', count: 380 },
     { label: 'المالكي', value: 'malki', count: 320 },
@@ -45,7 +45,7 @@ const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'كفر سوسة', value: 'kafr-sousa', count: 200 },
     { label: 'دمشق القديمة', value: 'old-damascus', count: 180 },
   ],
-  'rural-damascus': [
+  'damascus-countryside': [
     { label: 'جرمانا', value: 'jaramana', count: 300 },
     { label: 'دوما', value: 'douma', count: 250 },
     { label: 'الزبداني', value: 'zabadani', count: 200 },
@@ -53,24 +53,40 @@ const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'صحنايا', value: 'sahnaya', count: 150 },
     { label: 'التل', value: 'tall', count: 120 },
   ],
-  'aleppo': [
+  aleppo: [
     { label: 'الفردوس', value: 'firdaws', count: 280 },
     { label: 'الأزيزية', value: 'aziziyeh', count: 250 },
     { label: 'الحمدانية', value: 'hamdaniyeh', count: 220 },
     { label: 'السليمانية', value: 'sulaymaniyeh', count: 200 },
     { label: 'الجميلية', value: 'jamiliyeh', count: 180 },
   ],
-  'lattakia': [
+  latakia: [
     { label: 'الزراعة', value: 'ziraa', count: 400 },
     { label: 'الرمل الشمالي', value: 'raml-shamali', count: 350 },
     { label: 'الرمل الجنوبي', value: 'raml-janubi', count: 300 },
     { label: 'الصليبة', value: 'salibeh', count: 250 },
   ],
-  'tartous': [
+  tartous: [
     { label: 'المشتل', value: 'mashtal', count: 800 },
     { label: 'الثورة', value: 'thawra', count: 700 },
     { label: 'الكورنيش', value: 'corniche', count: 600 },
     { label: 'الوحدة', value: 'wahda', count: 500 },
+  ],
+  homs: [
+    { label: 'حمص', value: 'homs', count: 600 },
+    { label: 'الرقاما', value: 'raqama', count: 200 },
+    { label: 'الوعر', value: 'waer', count: 300 },
+    { label: 'كرم الزيتون', value: 'karm-zeitoun', count: 250 },
+  ],
+  dara: [
+    { label: 'درعا', value: 'dara', count: 400 },
+    { label: 'مزيريب', value: 'mzeireb', count: 150 },
+    { label: 'الصنمين', value: 'sanamin', count: 120 },
+  ],
+  'deir-ez-zor': [
+    { label: 'دير الزور', value: 'deir-ez-zor', count: 300 },
+    { label: 'الميادين', value: 'al-mayadin', count: 100 },
+    { label: 'البوكمال', value: 'albukamal', count: 80 },
   ],
 };
 
@@ -380,7 +396,7 @@ export const buildQueryParams = (
     switch (key) {
       case 'locations':
         if (Array.isArray(value) && value.length > 0) {
-          // فصل المحافظات عن المناطق
+          // فصل المحافظات عن المناطق والمناطق الفرعية
           const governorates = value.filter(loc => 
             GOVERNORATES.some(gov => gov.value === loc)
           );
@@ -392,7 +408,10 @@ export const buildQueryParams = (
             params['location__governorate__slug_en__in'] = governorates.join(',');
           }
           if (areas.length > 0) {
+            // يمكن أن تكون المناطق في area أو sub_area
             params['location__area__slug_en__in'] = areas.join(',');
+            // إضافة فلترة للمناطق الفرعية أيضاً
+            params['location__sub_area__slug_en__in'] = areas.join(',');
           }
         }
         break;
