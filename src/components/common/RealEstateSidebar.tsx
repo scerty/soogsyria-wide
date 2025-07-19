@@ -53,12 +53,15 @@ export const RealEstateSidebar: React.FC<RealEstateSidebarProps> = ({
           if (loc === governorate) return false;
           
           // إزالة جميع المناطق التابعة لهذه المحافظة
-          const allAreas = getHierarchicalLocations([governorate])
-            .filter(opt => opt.parentGovernorate === governorate)
-            .map(opt => opt.value);
+          const allAreas = (AREAS_BY_GOVERNORATE[governorate] || []).map(area => area.value);
           
           return !allAreas.includes(loc);
         });
+      } else {
+        // إضافة المحافظة إذا لم تكن موجودة
+        if (!newLocations.includes(governorate)) {
+          newLocations.push(governorate);
+        }
       }
       
       return {

@@ -5,24 +5,24 @@ import { FilterOption } from '../../types/listing';
 // المحافظات السورية (تتطابق مع governorate__slug_en)
 export const GOVERNORATES: FilterOption[] = [
   { label: 'دمشق', value: 'damascus', count: 2200 },
-  { label: 'ريف دمشق', value: 'rural-damascus', count: 1656 },
+  { label: 'ريف دمشق', value: 'damascus-countryside', count: 1656 },
   { label: 'حلب', value: 'aleppo', count: 1405 },
-  { label: 'اللاذقية', value: 'lattakia', count: 2686 },
+  { label: 'اللاذقية', value: 'latakia', count: 2686 },
   { label: 'طرطوس', value: 'tartous', count: 5603 },
   { label: 'حمص', value: 'homs', count: 1860 },
   { label: 'حماة', value: 'hama', count: 299 },
-  { label: 'إدلب', value: 'idleb', count: 109 },
+  { label: 'إدلب', value: 'idlib', count: 109 },
   { label: 'دير الزور', value: 'deir-ez-zor', count: 219 },
-  { label: 'الرقة', value: 'ar-raqqa', count: 84 },
-  { label: 'الحسكة', value: 'al-hasakeh', count: 48 },
+  { label: 'الرقة', value: 'raqqa', count: 84 },
+  { label: 'الحسكة', value: 'al-hasakah', count: 48 },
   { label: 'درعا', value: 'dara', count: 189 },
-  { label: 'السويداء', value: 'as-sweida', count: 28 },
+  { label: 'السويداء', value: 'as-suwayda', count: 28 },
   { label: 'القنيطرة', value: 'quneitra', count: 34 },
 ];
 
 // المناطق حسب المحافظة (تتطابق مع area__slug_en)
 export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
-  'idleb': [
+  'idlib': [
     { label: 'مركز أريحا', value: 'ariha', count: 0 },
     { label: 'احسم', value: 'ehsem', count: 0 },
     { label: 'محمبل', value: 'mhambal', count: 0 },
@@ -50,7 +50,7 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'التمانعة', value: 'tamanaah', count: 0 },
     { label: 'حيش', value: 'heish', count: 0 },
   ],
-  'al-hasakeh': [
+  'al-hasakah': [
     { label: 'مركز القامشلي', value: 'quamishli', count: 0 },
     { label: 'تل حميس', value: 'tal-hmis', count: 0 },
     { label: 'عامودا', value: 'amuda', count: 0 },
@@ -68,7 +68,7 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'العريشة', value: 'areesheh', count: 0 },
     { label: 'الهول', value: 'hole', count: 0 },
   ],
-  'ar-raqqa': [
+  'raqqa': [
     { label: 'مركز الثورة', value: 'al-thawrah', count: 0 },
     { label: 'المنصورة', value: 'mansura', count: 0 },
     { label: 'الجرنية', value: 'jurneyyeh', count: 0 },
@@ -80,7 +80,7 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'الكرامة', value: 'karama', count: 0 },
     { label: 'معدان', value: 'maadan', count: 0 },
   ],
-  'as-sweida': [
+  'as-suwayda': [
     { label: 'شقا', value: 'shaqa', count: 0 },
     { label: 'العريقة', value: 'ariqa', count: 0 },
     { label: 'الصورة الصغيرة', value: 'little-sura', count: 0 },
@@ -102,7 +102,7 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'الخشنية', value: 'al-khashniyyeh', count: 0 },
     { label: 'مسعدة', value: 'masaada', count: 0 },
   ],
-  'lattakia': [
+  'latakia': [
     { label: 'كنسبا', value: 'kansaba', count: 0 },
     { label: 'صلنفة', value: 'salanfa', count: 0 },
     { label: 'مزيرعة', value: 'mzaira', count: 0 },
@@ -124,7 +124,7 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'كسب', value: 'kasab', count: 0 },
     { label: 'هنادي', value: 'hanadi', count: 0 },
     { label: 'قسطل معاف', value: 'qastal-maaf', count: 0 },
-    { label: 'مركز اللاذقية', value: 'lattakia', count: 0 },
+    { label: 'مركز اللاذقية', value: 'latakia', count: 0 },
   ],
   'aleppo': [
     { label: 'اخترين', value: 'aghtrin', count: 0 },
@@ -252,7 +252,7 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
     { label: 'خشام', value: 'khasham', count: 0 },
     { label: 'صور', value: 'sur', count: 0 },
   ],
-  'rural-damascus': [
+  'damascus-countryside': [
     { label: 'صيدنايا', value: 'sidnaya', count: 0 },
     { label: 'رنكوس', value: 'rankus', count: 0 },
     { label: 'مركز الزبداني', value: 'az-zabdani', count: 0 },
@@ -327,16 +327,23 @@ export const AREAS_BY_GOVERNORATE: Record<string, FilterOption[]> = {
 // دالة للحصول على قائمة المواقع الهرمية
 export const getHierarchicalLocations = (selectedGovernorates: string[]): FilterOption[] => {
   const locations: FilterOption[] = [];
+  const addedValues = new Set<string>(); // لتجنب التكرار
   
   // إضافة جميع المحافظات
   GOVERNORATES.forEach(gov => {
-    locations.push({ ...gov, isGovernorate: true });
+    if (!addedValues.has(gov.value)) {
+      locations.push({ ...gov, isGovernorate: true });
+      addedValues.add(gov.value);
+    }
     
     // إذا كانت المحافظة محددة، أضف مناطقها
     if (selectedGovernorates.includes(gov.value)) {
       const areas = AREAS_BY_GOVERNORATE[gov.value] || [];
       areas.forEach(area => {
-        locations.push({ ...area, parentGovernorate: gov.value });
+        if (!addedValues.has(area.value)) {
+          locations.push({ ...area, parentGovernorate: gov.value });
+          addedValues.add(area.value);
+        }
       });
     }
   });
