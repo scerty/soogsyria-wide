@@ -16,7 +16,7 @@ import { listingService, PaginatedListings } from '../services/listingService';
 import ListingCard from '../components/listings/ListingCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
-const TABS = ['شراء', 'إيجار', 'بيع', 'تجاري'] as const;
+const TABS = ['شراء', 'إيجار', 'yبيع', 'تجاري'] as const;
 type Tab = typeof TABS[number];
 
 // بيانات التصنيفات الفرعية مع المسارات
