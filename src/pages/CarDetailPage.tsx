@@ -74,7 +74,41 @@ const CarDetailPage: React.FC = () => {
   }
 
   // Build location text
-  const locationText = listing.location || 'غير محدد';
+  const getLocationText = (location: string | LocationDetail): string => {
+    if (typeof location === 'string') {
+      return location;
+    }
+    
+    if (typeof location === 'object' && location !== null) {
+      const parts: string[] = [];
+      
+      // إضافة المنطقة الفرعية إذا كانت متوفرة
+      if (location.sub_area?.name_ar) {
+        parts.push(location.sub_area.name_ar);
+      }
+      
+      // إضافة المنطقة إذا كانت متوفرة ومختلفة عن المنطقة الفرعية
+      if (location.area?.name_en && location.area.name_en !== location.sub_area?.name_en) {
+        parts.push(location.area.name_en);
+      }
+      
+      // إضافة المحافظة
+      if (location.governorate?.name_en) {
+        parts.push(location.governorate.name_en);
+      }
+      
+      // إضافة المدينة إذا كانت مختلفة
+      if (location.city && !parts.includes(location.city)) {
+        parts.push(location.city);
+      }
+      
+      return parts.length > 0 ? parts.join(', ') : 'غير محدد';
+    }
+    
+    return 'غير محدد';
+  };
+  
+  const locationText = getLocationText(listing.location);
 
   // Images array or placeholder
   const images = listing.images ?? [];

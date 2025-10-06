@@ -24,11 +24,29 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
     }
     
     if (typeof location === 'object' && location !== null) {
-      const parts = [];
-      if (location.area) parts.push(location.area);
-      if (location.city) parts.push(location.city);
-      if (location.governorate) parts.push(location.governorate);
-      return parts.join(', ') || 'غير محدد';
+      const parts: string[] = [];
+      
+      // إضافة المنطقة الفرعية إذا كانت متوفرة
+      if (location.sub_area?.name_ar) {
+        parts.push(location.sub_area.name_ar);
+      }
+      
+      // إضافة المنطقة إذا كانت متوفرة ومختلفة عن المنطقة الفرعية
+      if (location.area?.name_en && location.area.name_en !== location.sub_area?.name_en) {
+        parts.push(location.area.name_en);
+      }
+      
+      // إضافة المحافظة
+      if (location.governorate?.name_en) {
+        parts.push(location.governorate.name_en);
+      }
+      
+      // إضافة المدينة إذا كانت مختلفة
+      if (location.city && !parts.includes(location.city)) {
+        parts.push(location.city);
+      }
+      
+      return parts.length > 0 ? parts.join(', ') : 'غير محدد';
     }
     
     return 'غير محدد';

@@ -19,18 +19,18 @@ export interface JobFilters {
 // المحافظات السورية
 const GOVERNORATES: FilterOption[] = [
   { label: 'دمشق', value: 'damascus', count: 2200 },
-  { label: 'ريف دمشق', value: 'damascus-countryside', count: 1656 },
+  { label: 'ريف دمشق', value: 'rural-damascus', count: 1656 },
   { label: 'حلب', value: 'aleppo', count: 1405 },
-  { label: 'اللاذقية', value: 'latakia', count: 2686 },
+  { label: 'اللاذقية', value: 'lattakia', count: 2686 },
   { label: 'طرطوس', value: 'tartous', count: 5603 },
   { label: 'حمص', value: 'homs', count: 1860 },
   { label: 'حماة', value: 'hama', count: 299 },
-  { label: 'إدلب', value: 'idlib', count: 109 },
+  { label: 'إدلب', value: 'idleb', count: 109 },
   { label: 'دير الزور', value: 'deir-ez-zor', count: 219 },
-  { label: 'الرقة', value: 'raqqa', count: 84 },
-  { label: 'الحسكة', value: 'al-hasakah', count: 48 },
-  { label: 'درعا', value: 'daraa', count: 189 },
-  { label: 'السويداء', value: 'as-suwayda', count: 28 },
+  { label: 'الرقة', value: 'ar-raqqa', count: 84 },
+  { label: 'الحسكة', value: 'al-hasakeh', count: 48 },
+  { label: 'درعا', value: 'dara', count: 189 },
+  { label: 'السويداء', value: 'as-sweida', count: 28 },
   { label: 'القنيطرة', value: 'quneitra', count: 34 },
 ];
 
@@ -288,7 +288,18 @@ export const buildJobQueryParams = (
     switch (key) {
       case 'locations':
         if (Array.isArray(value) && value.length > 0) {
-          params['location__slug__in'] = value.join(',');
+          // فصل المحافظات عن المناطق
+          const governorateValues = ['damascus', 'rural-damascus', 'aleppo', 'lattakia', 'tartous', 'homs', 'hama', 'idleb', 'deir-ez-zor', 'ar-raqqa', 'al-hasakeh', 'dara', 'as-sweida', 'quneitra'];
+          const governorates = value.filter(loc => governorateValues.includes(loc));
+          const areas = value.filter(loc => !governorateValues.includes(loc));
+          
+          if (governorates.length > 0) {
+            params['location__governorate__slug_en__in'] = governorates.join(',');
+          }
+          if (areas.length > 0) {
+            params['location__area__slug_en__in'] = areas.join(',');
+            params['location__sub_area__slug_en__in'] = areas.join(',');
+          }
         }
         break;
       case 'jobType':

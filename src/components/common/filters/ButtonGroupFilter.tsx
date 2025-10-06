@@ -27,28 +27,23 @@ export const ButtonGroupFilter: React.FC<ButtonGroupFilterProps> = ({
   const handleOptionClick = (value: string) => {
     console.log(`🔄 Button clicked: ${value}`);
     if (multiSelect) {
-      const newValues = selectedValues.includes(value)
-        ? selectedValues.filter(v => v !== value)
-        : [...selectedValues, value];
+      const newValues = safeSelectedValues.includes(value)
+        ? safeSelectedValues.filter(v => v !== value)
+        : [...safeSelectedValues, value];
       console.log(`📝 Multi-select new values:`, newValues);
       onChange(newValues);
     } else {
       // Single select behavior
-      if (value === 'all') {
-        console.log(`📝 Single-select: clearing all`);
-    const newValues = safeSelectedValues.includes(value)
-      ? safeSelectedValues.filter(v => v !== value)
-      : [...safeSelectedValues, value];
-        onChange([value]);
-      }
+      const newValues = safeSelectedValues.includes(value)
+        ? safeSelectedValues.filter(v => v !== value)
+        : [value];
+      console.log(`📝 Single-select new values:`, newValues);
+      onChange(newValues);
     }
   };
 
   const isSelected = (value: string) => {
-    if (value === 'all') {
-    const result = safeSelectedValues.includes(value);
-    }
-    return selectedValues.includes(value);
+    return safeSelectedValues.includes(value);
   };
 
   return (

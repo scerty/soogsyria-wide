@@ -10,8 +10,27 @@ export interface LocationDetail {
   id: number;
   country: string;
   city: string;
-  governorate: string;
-  area: string;
+  governorate: {
+    id: number;
+    name_en: string;
+    slug_en: string;
+  };
+  area: {
+    id: number;
+    name_en: string;
+    slug_en: string;
+    governorate: {
+      id: number;
+      name_en: string;
+      slug_en: string;
+    };
+  };
+  sub_area: {
+    id: number;
+    name_ar: string;
+    name_en: string;
+    slug_en: string;
+  };
   postal_code?: string;
   latitude?: number;
   longitude?: number;

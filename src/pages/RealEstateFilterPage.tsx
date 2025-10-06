@@ -15,36 +15,36 @@ import { buildQueryParams } from '../config/realEstateFilters';
 // خريطة المسارات إلى التصنيفات
 const PATH_TO_CATEGORY: Record<string, { tab: string; subCategory: string; title: string }> = {
   // شراء
-  'buy/residential': { tab: 'شراء', subCategory: 'عقارات للبيع', title: 'عقارات للبيع' },
-  'buy/new-properties': { tab: 'شراء', subCategory: 'عقارات جديدة', title: 'عقارات جديدة' },
-  'buy/vacation-homes': { tab: 'شراء', subCategory: 'بيوت عطلات', title: 'بيوت عطلات للبيع' },
-  'buy/international': { tab: 'شراء', subCategory: 'عقارات بالخارج', title: 'عقارات بالخارج' },
-  'buy/land': { tab: 'شراء', subCategory: 'قطع أراضي', title: 'قطع أراضي للبيع' },
-  'buy/vacation-land': { tab: 'شراء', subCategory: 'قطع عطلات', title: 'قطع عطلات للبيع' },
+  'buy/residential': { tab: 'buy', subCategory: 'عقارات للبيع', title: 'عقارات للبيع' },
+  'buy/new-properties': { tab: 'buy', subCategory: 'عقارات جديدة', title: 'عقارات جديدة' },
+  'buy/vacation-homes': { tab: 'buy', subCategory: 'بيوت عطلات', title: 'بيوت عطلات للبيع' },
+  'buy/international': { tab: 'buy', subCategory: 'عقارات بالخارج', title: 'عقارات بالخارج' },
+  'buy/land': { tab: 'buy', subCategory: 'قطع أراضي', title: 'قطع أراضي للبيع' },
+  'buy/vacation-land': { tab: 'buy', subCategory: 'قطع عطلات', title: 'قطع عطلات للبيع' },
   
   // إيجار
-  'rent/apartments': { tab: 'إيجار', subCategory: 'تأجير شقة', title: 'شقق للإيجار' },
-  'rent/vacation-homes': { tab: 'إيجار', subCategory: 'تأجير بيت عطلات', title: 'بيوت عطلات للإيجار' },
-  'rent/commercial': { tab: 'إيجار', subCategory: 'مكاتب وتجاري', title: 'مكاتب وعقارات تجارية للإيجار' },
-  'rent/land': { tab: 'إيجار', subCategory: 'قطع أراضي', title: 'أراضي للإيجار' },
-  'rent/agriculture': { tab: 'إيجار', subCategory: 'زراعة', title: 'أراضي زراعية للإيجار' },
-  'rent/other': { tab: 'إيجار', subCategory: 'أخرى', title: 'عقارات أخرى للإيجار' },
+  'rent/apartments': { tab: 'rent', subCategory: 'تأجير شقة', title: 'شقق للإيجار' },
+  'rent/vacation-homes': { tab: 'rent', subCategory: 'تأجير بيت عطلات', title: 'بيوت عطلات للإيجار' },
+  'rent/commercial': { tab: 'rent', subCategory: 'مكاتب وتجاري', title: 'مكاتب وعقارات تجارية للإيجار' },
+  'rent/land': { tab: 'rent', subCategory: 'قطع أراضي', title: 'أراضي للإيجار' },
+  'rent/agriculture': { tab: 'rent', subCategory: 'زراعة', title: 'أراضي زراعية للإيجار' },
+  'rent/other': { tab: 'rent', subCategory: 'أخرى', title: 'عقارات أخرى للإيجار' },
   
   // بيع
-  'sell/residential': { tab: 'بيع', subCategory: 'بيع عقار', title: 'عقارات للبيع' },
-  'sell/vacation-homes': { tab: 'بيع', subCategory: 'بيع بيت عطلات', title: 'بيوت عطلات للبيع' },
-  'sell/land': { tab: 'بيع', subCategory: 'بيع قطعة أرض', title: 'قطع أراضي للبيع' },
-  'sell/commercial': { tab: 'بيع', subCategory: 'بيع تجاري', title: 'عقارات تجارية للبيع' },
-  'sell/agriculture': { tab: 'بيع', subCategory: 'بيع زراعة', title: 'أراضي زراعية للبيع' },
-  'sell/other': { tab: 'بيع', subCategory: 'أخرى', title: 'عقارات أخرى للبيع' },
+  'sell/residential': { tab: 'sale', subCategory: 'بيع عقار', title: 'عقارات للبيع' },
+  'sell/vacation-homes': { tab: 'sale', subCategory: 'بيع بيت عطلات', title: 'بيوت عطلات للبيع' },
+  'sell/land': { tab: 'sale', subCategory: 'بيع قطعة أرض', title: 'قطع أراضي للبيع' },
+  'sell/commercial': { tab: 'sale', subCategory: 'بيع تجاري', title: 'عقارات تجارية للبيع' },
+  'sell/agriculture': { tab: 'sale', subCategory: 'بيع زراعة', title: 'أراضي زراعية للبيع' },
+  'sell/other': { tab: 'sale', subCategory: 'أخرى', title: 'عقارات أخرى للبيع' },
   
   // تجاري
-  'commercial/properties': { tab: 'تجاري', subCategory: 'عقار تجاري', title: 'عقارات تجارية' },
-  'commercial/offices': { tab: 'تجاري', subCategory: 'مكاتب ومستودعات', title: 'مكاتب ومستودعات' },
-  'commercial/retail': { tab: 'تجاري', subCategory: 'تجزئة', title: 'عقارات تجزئة' },
-  'commercial/industrial': { tab: 'تجاري', subCategory: 'صناعي', title: 'عقارات صناعية' },
-  'commercial/agriculture': { tab: 'تجاري', subCategory: 'زراعة', title: 'عقارات زراعية تجارية' },
-  'commercial/other': { tab: 'تجاري', subCategory: 'أخرى', title: 'عقارات تجارية أخرى' },
+  'commercial/properties': { tab: 'commercial', subCategory: 'عقار تجاري', title: 'عقارات تجارية' },
+  'commercial/offices': { tab: 'commercial', subCategory: 'مكاتب ومستودعات', title: 'مكاتب ومستودعات' },
+  'commercial/retail': { tab: 'commercial', subCategory: 'تجزئة', title: 'عقارات تجزئة' },
+  'commercial/industrial': { tab: 'commercial', subCategory: 'صناعي', title: 'عقارات صناعية' },
+  'commercial/agriculture': { tab: 'commercial', subCategory: 'زراعة', title: 'عقارات زراعية تجارية' },
+  'commercial/other': { tab: 'commercial', subCategory: 'أخرى', title: 'عقارات تجارية أخرى' },
 };
 
 export default function RealEstateFilterPage() {
@@ -71,6 +71,16 @@ export default function RealEstateFilterPage() {
   const { tab: activeTab, subCategory: activeSubCategory, title } = categoryInfo;
 
   const { filters, setFilters, resetFilters } = useUrlFilters(activeTab, activeSubCategory);
+
+  // إضافة نوع العملية إلى الفلاتر تلقائياً
+  React.useEffect(() => {
+    if (activeTab && !filters.operationType?.includes(activeTab)) {
+      setFilters(prev => ({
+        ...prev,
+        operationType: [activeTab]
+      }));
+    }
+  }, [activeTab, filters.operationType, setFilters]);
 
   // Debug logs
   console.log('🔍 Current filters:', filters);
